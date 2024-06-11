@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <main>e-duka</main>
+    <div>e-duka</div>
   )
 }
