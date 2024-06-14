@@ -3,6 +3,7 @@
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import SetColor from "../components/products/SetColor";
+import SetQuantity from "../components/products/SetQuantity";
 
 interface ProductDetailsProps{
     product: any
@@ -52,6 +53,28 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         })
     }, [setCartProduct])
 
+    const handleQtyIncrease = useCallback(() => {
+
+        if (cartProduct.quantity === 99){
+            return;
+        }
+
+        setCartProduct((prev) => {
+            return {...prev, quantity: ++prev.quantity}
+        })
+    }, [cartProduct])
+
+    const handleQtyDecrease = useCallback(() =>{
+
+        if (cartProduct.quantity === 1){
+            return;
+        }
+
+        setCartProduct((prev) => {
+            return {...prev, quantity: --prev.quantity}
+        })
+    }, [cartProduct])
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="">
@@ -82,7 +105,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 handleColorSelect={handleColorSelect}
             />
             <Horizontal />
-            <div className="">Quantity</div>
+            <SetQuantity 
+                cartProduct={cartProduct}
+                handleQtyIncrease={handleQtyIncrease}
+                handleQtyDecrease={handleQtyDecrease}
+            />
             <Horizontal />
             <div className="">Add to Cart</div>
         </div>
