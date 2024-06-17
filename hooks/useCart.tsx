@@ -5,7 +5,8 @@ import { toast } from 'react-hot-toast';
 type CartContextType = {
     cartTotalQty: number,
     cartProducts: CartProductType[] | null;
-    handleAddProductToCart: (product: CartProductType) => void
+    handleAddProductToCart: (product: CartProductType) => void;
+    handleRemoveProductFromCart: (product: CartProductType) => void;
 }
 
 export const CartContext = createContext<CartContextType | null>(null)
@@ -45,10 +46,24 @@ export const CartContextProvider = (props: Props) => {
         })
     }, [])
 
+
+    const handleRemoveProductFromCart = useCallback((product: CartProductType) => {
+        if(cartProducts){
+            const filteredProducts = cartProducts.filter((item) => {
+                return item.id !== product.id
+            })
+
+            SetCartProducts(filteredProducts)
+            toast.success('Product removed from cart!', {id: 'success1'})
+            localStorage.setItem("edukaCartItems", JSON.stringify(filteredProducts))
+        }
+    }, [cartProducts])
+
     const value = {
         cartTotalQty,
         cartProducts,
         handleAddProductToCart,
+        handleRemoveProductFromCart,
     }
 
     return (
