@@ -38,7 +38,7 @@ export const CartContextProvider = (props: Props) => {
                 updatedCart = [product]
             }
 
-            toast.success('Product added to cart👍')
+            toast.success("Product added to cart👍", { id: 'success1'})
             localStorage.setItem('edukaCartItems', JSON.stringify(updatedCart))
 
             return updatedCart;
