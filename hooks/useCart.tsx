@@ -7,6 +7,7 @@ type CartContextType = {
     cartProducts: CartProductType[] | null;
     handleAddProductToCart: (product: CartProductType) => void;
     handleRemoveProductFromCart: (product: CartProductType) => void;
+    handleCartQtyIncrease: (product: CartProductType) => void;
 }
 
 export const CartContext = createContext<CartContextType | null>(null)
@@ -20,17 +21,17 @@ export const CartContextProvider = (props: Props) => {
 
     const [cartTotalQty, setCartTotalQty] = useState(0)
 
-    const [cartProducts, SetCartProducts] = useState<CartProductType[] | null>(null)
+    const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null)
 
     useEffect(() => {
         const cartItems: any = localStorage.getItem('edukaCartItems')
         const cProducts: CartProductType[] | null = JSON.parse(cartItems) 
 
-        SetCartProducts(cProducts)
+        setCartProducts(cProducts)
     }, [])
     
     const handleAddProductToCart = useCallback((product: CartProductType) => {
-        SetCartProducts((prev) =>{
+        setCartProducts((prev) =>{
             let updatedCart;
 
             if (prev){
@@ -53,10 +54,33 @@ export const CartContextProvider = (props: Props) => {
                 return item.id !== product.id
             })
 
-            SetCartProducts(filteredProducts)
+            setCartProducts(filteredProducts)
             toast.success('Product removed from cart!', {id: 'success1'})
             localStorage.setItem("edukaCartItems", JSON.stringify(filteredProducts))
         }
+    }, [cartProducts])
+
+
+    const handleCartQtyIncrease = useCallback((product: CartProductType) => {
+        let updatedCart;
+        
+        if(product.quantity === 99 ){
+            return toast.error("Oops! Maximum reached", {id: 'success1'})
+        }
+
+        if(cartProducts){
+            updatedCart = [...cartProducts]
+
+            const existingIndex = cartProducts.findIndex((item) => item.id === product.id)
+
+            if(existingIndex > -1 ){
+                updatedCart[existingIndex].quantity = ++updatedCart[existingIndex].quantity
+            }
+
+            setCartProducts(updatedCart)
+            localStorage.setItem("edukaCartItems", JSON.stringify(updatedCart))
+        }
+
     }, [cartProducts])
 
     const value = {
@@ -64,6 +88,7 @@ export const CartContextProvider = (props: Props) => {
         cartProducts,
         handleAddProductToCart,
         handleRemoveProductFromCart,
+        handleCartQtyIncrease,
     }
 
     return (
