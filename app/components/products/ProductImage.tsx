@@ -4,7 +4,7 @@ import Image from "next/image";
 import {
   CartProductType,
   selectedImgType,
-} from "../../product/[productid]/ProductDetails";
+} from "../../product/[productId]/ProductDetails";
 
 interface ProductImageProps {
   cartProduct: CartProductType;
