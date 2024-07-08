@@ -14,7 +14,7 @@ export default NextAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),
         CredentialsProvider({
-            name: 'credentilas',
+            name: 'credentials',
             credentials: {
                 email: {
                     label: 'email',
@@ -36,16 +36,16 @@ export default NextAuth({
                     }
                 })
 
-                if(!user || !user?.hasedPassword){
+                if(!user || !user?.hashedPassword){
                     throw new Error('Invalid email or password')
                 }
 
                 const isCorrectPassword = await bcrypt.compare(
                     credentials.password,
-                    user.hasedPassword
+                    user.hashedPassword
                 )
 
-                if(isCorrectPassword){
+                if(!isCorrectPassword){
                     throw new Error('Invalid email or password')
                 }
 
