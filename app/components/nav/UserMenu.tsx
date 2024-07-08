@@ -7,9 +7,15 @@ import Link from "next/link";
 import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
 import BackDrop from "./BackDrop";
+import { SafeUser } from "../../../types";
 
 
-const UserMenu = () => {
+interface UserMenuProps{
+    currentUser: SafeUser | null;
+}
+
+
+const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -26,6 +32,7 @@ const UserMenu = () => {
         </div>
         {isOpen && (
             <div className="absolute rounded-md shadow-md w-[170px] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
+                {currentUser ? (
                 <div className="">
                     <Link href="/orders">
                         <MenuItem onClick={toggleOpen}>
@@ -37,13 +44,14 @@ const UserMenu = () => {
                             Admin Dashboard
                         </MenuItem>
                     </Link>
+                    <hr />
                     <MenuItem onClick={() =>{
                         toggleOpen();
                         signOut();
                     }}>
                         Log out
                     </MenuItem>
-                </div>
+                </div> ) : (
                 <div className="">
                     <Link href="/login">
                             <MenuItem onClick={toggleOpen}>
@@ -55,7 +63,7 @@ const UserMenu = () => {
                                 Register
                             </MenuItem>
                     </Link>
-                </div>
+                </div>)}
             </div>
         )}
       </div> 
