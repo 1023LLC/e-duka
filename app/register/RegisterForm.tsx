@@ -71,7 +71,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
   return (
     <>
       <Heading title="Sign up for e*duka"/>
-      <Button outline label="Sign up with Google" icon={AiOutlineGoogle} onClick={() => {}}/>
+      <Button outline label="Continue with Google" icon={AiOutlineGoogle} onClick={() => {
+        signIn('google')
+      }}/>
       <hr className="bg-slate-300 w-full h-px"/>
       <Input 
         id="name"
