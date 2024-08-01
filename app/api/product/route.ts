@@ -6,8 +6,10 @@ export async function POST(request: Request) {
     try {
         const currentUser = await getCurrentUser();
 
-        if (!currentUser || currentUser.role !== 'ADMIN') {
-            return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
+        if(!currentUser) return NextResponse.error()
+
+        if(currentUser.role !== "ADMIN"){
+            return NextResponse.error()
         }
 
         const body = await request.json();
