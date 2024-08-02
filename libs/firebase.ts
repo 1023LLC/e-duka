@@ -1,16 +1,14 @@
 import { initializeApp } from "firebase/app";
-import dotenv from 'dotenv';
 
-dotenv.config();
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID
+  apiKey: "AIzaSyCNXo2KUYZlsPa2gwLF1nl8TrHYHjlO_nc",
+  authDomain: "e-duka-428809.firebaseapp.com",
+  projectId: "e-duka-428809",
+  storageBucket: "e-duka-428809.appspot.com",
+  messagingSenderId: "631429224917",
+  appId: "1:631429224917:web:67a0731ae655b4c3e1c55c"
 };
 
 // Initialize Firebase
