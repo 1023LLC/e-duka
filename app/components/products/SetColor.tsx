@@ -3,7 +3,7 @@
 import {
   CartProductType,
   selectedImgType,
-} from "@/app/product/[productId]/ProductDetails";
+} from "@/app/product/[productid]/ProductDetails";
 
 interface SetColorProps {
   images: selectedImgType[];

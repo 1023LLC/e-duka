@@ -1,6 +1,6 @@
 "use client";
 
-import { CartProductType } from "@/app/product/[productId]/ProductDetails";
+import { CartProductType } from "@/app/product/[productid]/ProductDetails";
 
 interface SetQtyProps {
   cartCounter?: boolean;
